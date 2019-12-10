@@ -16,6 +16,8 @@ end
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
+    elseif key == 'w' then
+        ball.pos.y = ball.pos.y - 1
     end
 end
 
