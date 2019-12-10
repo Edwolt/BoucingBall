@@ -1,5 +1,4 @@
 Ball = require 'ball'
-Account = require 'account'
 
 function love.load()
     ball = Ball.new()
