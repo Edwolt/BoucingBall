@@ -1,6 +1,9 @@
 Ball = {}
 sprite = love.graphics.newImage("images/ball.png")
 sprite:setFilter("nearest", "nearest")
+
+FLOOR = 600
+
 function Ball:new()
     local obj = {}
 
@@ -18,6 +21,10 @@ function Ball:new()
 
         self.pos.x = self.pos.x + self.vel.x * dt
         self.pos.y = self.pos.y + self.vel.y * dt
+
+        if self.pos.y > FLOOR then
+            self.pos.y = FLOOR
+        end
     end
 
     function obj:walk(val)
@@ -25,7 +32,13 @@ function Ball:new()
     end
 
     function obj:jump()
-        obj.vel.y = -200
+        if obj:onFloor() then
+            obj.vel.y = -200
+        end
+    end
+
+    function obj:onFloor()
+        return obj.pos.y == FLOOR
     end
 
     return obj
