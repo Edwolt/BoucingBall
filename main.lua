@@ -8,21 +8,19 @@ function love.draw()
 end
 
 function love.update(dt)
-    local vec = {x = 0, y = 0}
-    if love.keyboard.isDown("w") then
-        vec.y = vec.y - 1
-    end
-    if love.keyboard.isDown("s") then
-        vec.y = vec.y + 1
-    end
+    val = 0
     if love.keyboard.isDown("a") then
-        vec.x = vec.x - 1
+        val = val - 1
     end
     if love.keyboard.isDown("d") then
-        vec.x = vec.x + 1
+        val = val + 1
     end
-    ball:move(vec, dt)
-    print(vec.x, vec.y)
+    ball:walk(val)
+    if love.keyboard.isDown("w") then
+        ball:jump()
+    end
+
+    ball:update(dt)
 end
 
 function love.keypressed(key)
