@@ -1,8 +1,13 @@
+Ball = require 'ball'
+
 function love.load()
+    ball = Ball.new()
 end
 
 function love.draw()
     love.graphics.print({{255, 255, 255}, love.timer.getFPS()}, 0, 0)
+    ball.draw()
+    
 end
 
 function love.update(dt)
@@ -11,10 +16,6 @@ end
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
-    elseif key == "f11" then
-        love.window.setFullscreen(true)
-    elseif key == "f5" then
-        love.event.quit("restart")
     end
 end
 
