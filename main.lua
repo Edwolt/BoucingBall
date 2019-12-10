@@ -1,4 +1,5 @@
 Ball = require 'ball'
+Account = require 'account'
 
 function love.load()
     ball = Ball.new()
@@ -6,7 +7,7 @@ end
 
 function love.draw()
     love.graphics.print({{255, 255, 255}, love.timer.getFPS()}, 0, 0)
-    ball.draw()
+    ball:draw()
     
 end
 

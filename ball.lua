@@ -1,19 +1,16 @@
 Ball = {}
-Ball.sprite = love.graphics.newImage('ball.png')
+sprite = love.graphics.newImage("ball.png")
 
-function Ball:new(obj)
-	local obj = obj or {}
-	setmetatable(obj, self)
-    self.__index = self
+function Ball:new()
+    local obj = {}
 
-    obj.pos.x = 50
-    obj.pos.y = 50
+    obj.pos = {x = 50, y = 50}
 
-	return obj
-end
+    function obj:draw()
+        love.graphics.draw(sprite, self.pos.x, self.pos.y)
+    end
 
-function Ball:draw()
-	love.graphics.draw(self.sprite, self.pos.x, self.pos.y)
+    return obj
 end
 
 return Ball
