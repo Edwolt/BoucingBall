@@ -1,21 +1,48 @@
-Ball = {}
-sprite = love.graphics.newImage("images/ball.png")
-sprite:setFilter("nearest", "nearest")
+Life = {
+    sprite = love.graphics.newImage("images/life.png")
+}
+Life.sprite:setFilter("nearest", "nearest")
+
+function Life:new()
+    local life = {
+        n = 5
+    }
+
+    function life:loseLife()
+        self.n = self.n - 1
+        return n >= 0
+    end
+
+    function life:draw()
+        for i = 1, 5 do
+            love.graphics.draw(Life.sprite, 50 + i * 50, 20, 0, 5, 5)
+        end
+    end
+
+    return life
+end
+
+Ball = {
+    sprite = love.graphics.newImage("images/ball.png")
+}
+Ball.sprite:setFilter("nearest", "nearest")
 
 FLOOR = 600
 
 function Ball:new()
-    local obj = {}
+    local ball = {
+        pos = {x = 100, y = 100},
+        vel = {x = 0, y = 0},
+        acel = {x = 0, y = 500},
+        life = Life:new()
+    }
 
-    obj.pos = {x = 50, y = 50}
-    obj.vel = {x = 0, y = 0}
-    obj.acel = {x = 0, y = 500}
-
-    function obj:draw(escala)
-        love.graphics.draw(sprite, self.pos.x, self.pos.y, 0, 5, 5)
+    function ball:draw(escala)
+        ball.life:draw()
+        love.graphics.draw(Ball.sprite, self.pos.x, self.pos.y, 0, 5, 5)
     end
 
-    function obj:update(dt)
+    function ball:update(dt)
         self.vel.x = self.vel.x + self.acel.x * dt
         self.vel.y = self.vel.y + self.acel.y * dt
 
@@ -27,21 +54,21 @@ function Ball:new()
         end
     end
 
-    function obj:walk(val)
-        obj.vel.x = val * 200
+    function ball:walk(val)
+        self.vel.x = val * 200
     end
 
-    function obj:jump()
-        if obj:onFloor() then
-            obj.vel.y = -200
+    function ball:jump()
+        if ball:onFloor() then
+            self.vel.y = -200
         end
     end
 
-    function obj:onFloor()
-        return obj.pos.y == FLOOR
+    function ball:onFloor()
+        return self.pos.y == FLOOR
     end
 
-    return obj
+    return ball
 end
 
 return Ball
