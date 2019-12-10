@@ -1,5 +1,4 @@
 Ball = require "ball"
-Teclas = {}
 
 function love.load()
     ball = Ball.new()
@@ -10,15 +9,21 @@ function love.draw()
 end
 
 function love.update(dt)
+    local vec = {x = 0, y = 0}
     if love.keyboard.isDown("w") then
-        ball:move_up()
-    elseif love.keyboard.isDown("s") then
-        ball:move_down()
-    elseif love.keyboard.isDown("a") then
-        ball:move_left()
-    elseif love.keyboard.isDown("d") then
-        ball:move_right()
+        vec.y = vec.y - 1
     end
+    if love.keyboard.isDown("s") then
+        vec.y = vec.y + 1
+    end
+    if love.keyboard.isDown("a") then
+        vec.x = vec.x - 1
+    end
+    if love.keyboard.isDown("d") then
+        vec.x = vec.x + 1
+    end
+    ball:move(vec, dt)
+    print(vec.x, vec.y)
 end
 
 function love.keypressed(key)
@@ -27,11 +32,9 @@ function love.keypressed(key)
     end
 end
 
-function love.resize(w, h)
-    -- body...
-end
-
 --[[
+function love.resize(w, h)
+end
 function love.focus(bool)
 end
 function love.keypressed(key, unicode)
