@@ -5,7 +5,6 @@ function love.load()
 end
 
 function love.draw()
-    love.graphics.print({{255, 255, 255}, love.timer.getFPS()}, 0, 0)
     ball:draw()
     
 end
