@@ -37,7 +37,7 @@ function Ball:new()
         life = Life:new()
     }
 
-    function ball:draw(escala)
+    function ball:draw()
         ball.life:draw()
         love.graphics.draw(Ball.sprite, self.pos.x, self.pos.y, 0, 5, 5)
     end

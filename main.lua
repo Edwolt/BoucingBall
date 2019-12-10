@@ -4,7 +4,7 @@ function love.load()
 end
 
 function love.draw()
-    ball:draw(escala)
+    ball:draw()
 end
 
 function love.update(dt)
