@@ -1,14 +1,15 @@
 Ball = {}
 sprite = love.graphics.newImage("ball.png")
-
+sprite:setFilter("nearest", "nearest")
 function Ball:new()
     local obj = {}
 
     obj.pos = {x = 50, y = 50}
     obj.vel = 100
 
-    function obj:draw()
-        love.graphics.draw(sprite, self.pos.x, self.pos.y)
+    function obj:draw(escala)
+        love.graphics.draw(sprite, self.pos.x, self.pos.y, 0, 5, 5)
+
     end
 
     function obj:move(vec, dt)

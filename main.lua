@@ -1,11 +1,10 @@
 Ball = require "ball"
-
 function love.load()
     ball = Ball.new()
 end
 
 function love.draw()
-    ball:draw()
+    ball:draw(escala)
 end
 
 function love.update(dt)
