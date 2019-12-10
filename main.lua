@@ -1,4 +1,5 @@
-Ball = require 'ball'
+Ball = require "ball"
+Teclas = {}
 
 function love.load()
     ball = Ball.new()
@@ -6,17 +7,23 @@ end
 
 function love.draw()
     ball:draw()
-    
 end
 
 function love.update(dt)
+    if love.keyboard.isDown("w") then
+        ball:move_up()
+    elseif love.keyboard.isDown("s") then
+        ball:move_down()
+    elseif love.keyboard.isDown("a") then
+        ball:move_left()
+    elseif love.keyboard.isDown("d") then
+        ball:move_right()
+    end
 end
 
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
-    elseif key == 'w' then
-        ball.pos.y = ball.pos.y - 1
     end
 end
 
