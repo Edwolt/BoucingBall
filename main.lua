@@ -1,4 +1,6 @@
-Ball = require "ball"
+UTIL = UTIL or require "util"
+Ball = Ball or require "ball"
+
 function love.load()
     ball = Ball.new()
 end
@@ -8,14 +10,16 @@ function love.draw()
 end
 
 function love.update(dt)
-    val = 0
+    dt = dt * UTIL.tile
+
+    local walk = 0
     if love.keyboard.isDown("a") then
-        val = val - 1
+        walk = walk - 1
     end
     if love.keyboard.isDown("d") then
-        val = val + 1
+        walk = walk + 1
     end
-    ball:walk(val)
+    ball:walk(walk)
     if love.keyboard.isDown("w") then
         ball:jump()
     end
