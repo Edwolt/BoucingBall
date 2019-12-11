@@ -1,6 +1,6 @@
 UTIL = UTIL or require "util"
 
-Life = {
+local Life = {
     SCALE = UTIL.tile * 7,
     sprite = love.graphics.newImage("images/life.png")
 }
@@ -13,11 +13,11 @@ function Life:new()
 
     function life:loseLife()
         self.n = self.n - 1
-        return n >= 0
+        return self.n >= 0
     end
 
     function life:draw()
-        for i = 1, 5 do
+        for i = 1, self.n do
             love.graphics.draw(Life.sprite, 50 + i * 50, 20, 0, Life.SCALE, Life.SCALE)
         end
     end

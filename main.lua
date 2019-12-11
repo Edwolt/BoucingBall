@@ -24,12 +24,19 @@ function love.update(dt)
         ball:jump()
     end
 
+    if love.keyboard.isDown("s") then
+        ball.life:loseLife()
+    end
+    
     ball:update(dt)
 end
 
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
+    end
+    if key == "s" then
+        ball.life:loseLife()
     end
 end
 
