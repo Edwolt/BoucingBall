@@ -1,15 +1,20 @@
 UTIL = UTIL or require "util"
 
+-- Life Class
 local Life = {
     SCALE = UTIL.tile * 7,
+    POS = {x = 50, y = 20},
+    SPACE = 50,
     sprite = love.graphics.newImage("images/life.png")
 }
-Life.sprite:setFilter("nearest", "nearest")
 
+Life.sprite:setFilter("nearest", "nearest")
 function Life:new()
     local life = {
         n = 5
     }
+    setmetatable(life, self)
+	self.__index = self
 
     function life:loseLife()
         self.n = self.n - 1
@@ -18,13 +23,21 @@ function Life:new()
 
     function life:draw()
         for i = 1, self.n do
-            love.graphics.draw(Life.sprite, 50 + i * 50, 20, 0, Life.SCALE, Life.SCALE)
+            love.graphics.draw(
+                Life.sprite, --
+                Life.POS.x + i * Life.SPACE,
+                Life.POS.y,
+                0,
+                Life.SCALE,
+                Life.SCALE
+            )
         end
     end
 
     return life
 end
 
+-- Ball Class
 Ball = {
     SCALE = 10 * UTIL.tile,
     GRAVIDADE = 500 * UTIL.tile,
@@ -42,6 +55,8 @@ function Ball:new()
         acel = {x = 0, y = Ball.GRAVIDADE},
         life = Life:new()
     }
+    setmetatable(ball, self)
+    self.__index = self
 
     function ball:draw()
         ball.life:draw()

@@ -1,12 +1,16 @@
 UTIL = UTIL or require "util"
 Ball = Ball or require "ball"
+Coins = Coins or require "coin"
 
 function love.load()
-    ball = Ball.new()
+    ball = Ball:new()
+    coins = Coins:new()
+    coins:add(20,20)
 end
 
 function love.draw()
     ball:draw()
+    coins:draw()
 end
 
 function love.update(dt)
@@ -27,7 +31,7 @@ function love.update(dt)
     if love.keyboard.isDown("s") then
         ball.life:loseLife()
     end
-    
+
     ball:update(dt)
 end
 
