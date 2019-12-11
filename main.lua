@@ -9,8 +9,8 @@ function love.load()
 end
 
 function love.draw()
-    ball:draw()
     coins:draw()
+    ball:draw()
 end
 
 function love.update(dt)
