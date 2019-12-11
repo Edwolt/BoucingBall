@@ -5,7 +5,7 @@ Coins = Coins or require "coin"
 function love.load()
     ball = Ball:new()
     coins = Coins:new()
-    coins:add(20,20)
+    coins:add(20, 20)
 end
 
 function love.draw()
@@ -28,10 +28,6 @@ function love.update(dt)
         ball:jump()
     end
 
-    if love.keyboard.isDown("s") then
-        ball.life:loseLife()
-    end
-
     ball:update(dt)
 end
 
@@ -40,7 +36,9 @@ function love.keypressed(key)
         love.event.quit()
     end
     if key == "s" then
-        ball.life:loseLife()
+        if ball:onFloor() and ball.life:loseLife() then
+            ball.draw = function() end
+        end
     end
 end
 

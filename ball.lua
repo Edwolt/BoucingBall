@@ -18,7 +18,7 @@ function Life:new()
 
     function life:loseLife()
         self.n = self.n - 1
-        return self.n >= 0
+        return self.n < 0
     end
 
     function life:draw()
