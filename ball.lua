@@ -40,8 +40,8 @@ end
 -- Ball Class
 Ball = {
     SCALE = 10 * UTIL.tile,
-    GRAVIDADE = 500 * UTIL.tile,
-    PULO = 500 * UTIL.tile,
+    GRAVIDADE = 2000 * UTIL.tile,
+    PULO = 1100 * UTIL.tile,
     CAMINHADA = 200 * UTIL.tile,
     sprite = love.graphics.newImage("images/ball.png")
 }
