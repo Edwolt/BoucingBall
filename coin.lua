@@ -25,14 +25,13 @@ end
 local Coins = {}
 function Coins:new()
     local coins = {
-        vet = {},
-        n = 0
+        vet = {}
     }
     setmetatable(coins, self)
     self.__index = self
 
     function coins:add(x, y)
-        self.vet[self.n] = Coin:new(x, y)
+        table.insert(self.vet, Coin:new(x, y))
     end
 
     function coins:remove(x, y)
@@ -45,7 +44,6 @@ function Coins:new()
 
     function coins:draw()
         for _, i in ipairs(self.vet) do
-            print(i)
             i:draw()
         end
     end

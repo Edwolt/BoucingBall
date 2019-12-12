@@ -1,45 +1,42 @@
--- Block Class
-local Block = {
-    SCALE = 1,
-    sprite = love.graphics.newImage("image/campo.png")
-}
-Block.sprite:setFilter("nearest", "nearest")
-
-function Block:new(x, y)
-    local block = {
-        pos = {x = x, y = y}
-    }
-    setmetatable(block, self)
-    self.__index = self
-
-    function block:draw()
-        love.graphics.draw(Block.sprite, block.pos.x, block.pos.y, 0, Block.SCALE, Block.SCALE)
-    end
-
-    return block
-end
+Vec = Vec or require "vec"
 
 -- Layer Class
 local Layer = {}
 
-function Layer:new(l)
+function Layer:new(l, sheet)
     local layer = {
-        vet = {},
-        tam = {
-            width = 0,
-            height = 0
-        }
+        data = l.data,
+        sheet = sheet
     }
     setmetatable(layer, self)
     self.__index = self
 
-    -- criar layer
+    function layer:draw(info) -- TODO fazer o draw funcionar
+        for k, i in ipairs(self.data) do
+            if i ~= 0 then
+                local screen_pos = Vec:new(math.floor(k / info.columns), k % info.columns)
+                local tile_pos = Vec:new(math.floor(i / info.columns), i % info.columns)
 
-    function Layer:draw()
-        for _, i in pairs(self.vet) do
-            print(i)
-            i:draw()
+                local quad =
+                    love.graphics.newQuad(
+                    tile_pos.x * info.tile.width,
+                    tile_pos.y * info.tile.height,
+                    info.tile.width,
+                    info.tile.height,
+                    info.image.width,
+                    info.image.height
+                )
+
+                self:_draw(screen_pos, quad, info)
+            end
         end
+    end
+
+    function layer:_draw(screen_pos, quad, info)
+        local x = screen_pos.x * info.tile.width
+        local y = screen_pos.y * info.tile.height
+
+        love.graphics.draw(self.sheet, quad, x, y)
     end
 
     return layer
@@ -56,17 +53,34 @@ function Scene:new()
     self.__index = self
 
     function scene:load(path)
-        local tilemap = require(path)
-        for _, layer in ipairs(tilemap.tileset.layers) do
-            self.layers:insert(Layer:new(layer))
+        local tilemap = require("tilemap/" .. path)
+        local tileset = tilemap.tilesets[1]
+        local sheet = love.graphics.newImage(tileset.image)
+        self.info = {
+            tile = {
+                width = tileset.tilewidth,
+                height = tileset.tileheight
+            },
+            image = {
+                width = tileset.imagewidth,
+                height = tileset.imageheight
+            },
+            columns = tileset.columns
+        }
+        sheet:setFilter("nearest", "nearest")
+
+        for k, layer in ipairs(tilemap.layers) do
+            table.insert(self.layers, (Layer:new(layer, sheet)))
         end
     end
 
     function scene:draw()
-        for _, i in ipairs(self.layers) do
-            i:draw()
+        for k, i in ipairs(self.layers) do
+            i:draw(self.info)
         end
     end
+
+    return scene
 end
 
 return Scene

@@ -1,14 +1,18 @@
-UTIL = UTIL or require("util")
-Ball = Ball or require("ball")
-Coins = Coins or require("coin")
+UTIL = UTIL or require "util"
+Ball = Ball or require "ball"
+Coins = Coins or require "coin"
+Scene = Scene or require "scene"
 
 function love.load()
     ball = Ball:new()
     coins = Coins:new()
     coins:add(20, 20)
+    scene = Scene:new()
+    scene:load("untitled")
 end
 
 function love.draw()
+    scene:draw()
     coins:draw()
     ball:draw()
 end
