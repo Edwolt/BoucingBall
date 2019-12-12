@@ -44,7 +44,7 @@ function Coins:new()
     end
 
     function coins:draw()
-        for _, i in pairs(self.vet) do
+        for _, i in ipairs(self.vet) do
             print(i)
             i:draw()
         end

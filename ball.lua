@@ -1,9 +1,10 @@
 UTIL = UTIL or require "util"
+Vec = Vec or require "vec"
 
 -- Life Class
 local Life = {
     SCALE = UTIL.tile * 7,
-    POS = {x = 50, y = 20},
+    POS = Vec:new(50, 20),
     SPACE = 50,
     sprite = love.graphics.newImage("images/life.png")
 }
@@ -14,7 +15,7 @@ function Life:new()
         n = 5
     }
     setmetatable(life, self)
-	self.__index = self
+    self.__index = self
 
     function life:loseLife()
         self.n = self.n - 1
@@ -50,9 +51,9 @@ Ball.sprite:setFilter("nearest", "nearest")
 
 function Ball:new()
     local ball = {
-        pos = {x = 100, y = 100},
-        vel = {x = 0, y = 0},
-        acel = {x = 0, y = Ball.GRAVIDADE},
+        pos = Vec:new(100, 100),
+        vel = Vec:new(0, 0),
+        acel = Vec:new(0, Ball.GRAVIDADE),
         life = Life:new()
     }
     setmetatable(ball, self)
@@ -64,11 +65,11 @@ function Ball:new()
     end
 
     function ball:update(dt)
-        self.vel.x = self.vel.x + self.acel.x * dt
-        self.vel.y = self.vel.y + self.acel.y * dt
+        -- vel = vel + acel * dt
+        self.vel = self.vel:add(self.acel:mul(dt))
 
-        self.pos.x = self.pos.x + self.vel.x * dt
-        self.pos.y = self.pos.y + self.vel.y * dt
+        -- pos = pos + vel * dt
+        self.pos = self.pos:add(self.vel:mul(dt))
 
         if self.pos.y > Ball.FLOOR then
             self.pos.y = Ball.FLOOR
