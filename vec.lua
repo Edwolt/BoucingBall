@@ -1,6 +1,5 @@
 -- Vec Class
 local Vec = {}
-
 function Vec:new(x, y)
     local vec = {
         x = x or 0,

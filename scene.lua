@@ -2,7 +2,6 @@ Vec = Vec or require "vec"
 
 -- Layer Class
 local Layer = {}
-
 function Layer:new(l, sheet)
     local layer = {
         width = l.width,
@@ -13,18 +12,14 @@ function Layer:new(l, sheet)
     setmetatable(layer, self)
     self.__index = self
 
-    function layer:draw(info) -- TODO fazer o draw funcionar
+    function layer:draw(info)
         for y = 0, self.height - 1 do
             for x = 0, self.width - 1 do
                 local k = y * self.width + x + 1
-                print(x, y, k)
                 if self.data[k] ~= 0 then
                     local i = self.data[k] - 1
 
-                    local screen_pos = Vec:new(x, y)
                     local tile_pos = Vec:new(i % info.columns, math.floor(i / info.columns))
-
-                    print(i, tile_pos.x, tile_pos.y, tile_pos.x * info.tile.width, tile_pos.y * info.tile.height)
 
                     local quad =
                         love.graphics.newQuad(
@@ -36,7 +31,7 @@ function Layer:new(l, sheet)
                         info.image.height
                     )
 
-                    self:_draw(screen_pos, quad, info)
+                    self:_draw(Vec:new(x, y), quad, info)
                 end
             end
         end
@@ -54,7 +49,6 @@ end
 
 -- Scene Class
 local Scene = {}
-
 function Scene:new()
     local scene = {
         layers = {}
