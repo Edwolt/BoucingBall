@@ -38,7 +38,7 @@ function Life:new()
 end
 
 -- Ball Class
-Ball = {
+local Ball = {
     SCALE = 10 * UTIL.tile,
     GRAVIDADE = 2000 * UTIL.tile,
     PULO = 1100 * UTIL.tile,

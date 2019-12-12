@@ -22,7 +22,7 @@ function Coin:new(x, y)
 end
 
 -- Coins Class
-Coins = {}
+local Coins = {}
 function Coins:new()
     local coins = {
         vet = {},
