@@ -5,6 +5,8 @@ local Layer = {}
 
 function Layer:new(l, sheet)
     local layer = {
+        width = l.width,
+        height = l.height,
         data = l.data,
         sheet = sheet
     }
@@ -12,22 +14,30 @@ function Layer:new(l, sheet)
     self.__index = self
 
     function layer:draw(info) -- TODO fazer o draw funcionar
-        for k, i in ipairs(self.data) do
-            if i ~= 0 then
-                local screen_pos = Vec:new(math.floor(k / info.columns), k % info.columns)
-                local tile_pos = Vec:new(math.floor(i / info.columns), i % info.columns)
+        for y = 0, self.height - 1 do
+            for x = 0, self.width - 1 do
+                local k = y * self.width + x + 1
+                print(x, y, k)
+                if self.data[k] ~= 0 then
+                    local i = self.data[k] - 1
 
-                local quad =
-                    love.graphics.newQuad(
-                    tile_pos.x * info.tile.width,
-                    tile_pos.y * info.tile.height,
-                    info.tile.width,
-                    info.tile.height,
-                    info.image.width,
-                    info.image.height
-                )
+                    local screen_pos = Vec:new(x, y)
+                    local tile_pos = Vec:new(i % info.columns, math.floor(i / info.columns))
 
-                self:_draw(screen_pos, quad, info)
+                    print(i, tile_pos.x, tile_pos.y, tile_pos.x * info.tile.width, tile_pos.y * info.tile.height)
+
+                    local quad =
+                        love.graphics.newQuad(
+                        tile_pos.x * info.tile.width,
+                        tile_pos.y * info.tile.height,
+                        info.tile.width,
+                        info.tile.height,
+                        info.image.width,
+                        info.image.height
+                    )
+
+                    self:_draw(screen_pos, quad, info)
+                end
             end
         end
     end
