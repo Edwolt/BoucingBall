@@ -19,33 +19,54 @@ function Block:new(x, y)
     return block
 end
 
-local Blocks = {}
-function Blocks:new()
-    local blocks = {
+-- Layer Class
+local Layer = {}
+
+function Layer:new(l)
+    local layer = {
         vet = {},
-        n = 0
+        tam = {
+            width = 0,
+            height = 0
+        }
     }
-    setmetatable(blocks, self)
+    setmetatable(layer, self)
     self.__index = self
 
-    function coins:add(x, y)
-        self.vet[self.n] = Block:new(x, y)
-    end
+    -- criar layer
 
-    function coins:remove(x, y)
-        for k, i in pairs(self.vet) do
-            if i.x == x and i.y == y then
-                self.vet[k] = nil
-            end
-        end
-    end
-
-    function coins:draw()
+    function Layer:draw()
         for _, i in pairs(self.vet) do
             print(i)
             i:draw()
         end
     end
+
+    return layer
 end
 
-return Blocks
+-- Scene Class
+local Scene = {}
+
+function Scene:new()
+    local scene = {
+        layers = {}
+    }
+    setmetatable(scene, self)
+    self.__index = self
+
+    function scene:load(path)
+        local tilemap = require(path)
+        for _, layer in ipairs(tilemap.tileset.layers) do
+            self.layers:insert(Layer:new(layer))
+        end
+    end
+
+    function scene:draw()
+        for _, i in ipairs(self.layers) do
+            i:draw()
+        end
+    end
+end
+
+return Scene

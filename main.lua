@@ -1,6 +1,6 @@
-UTIL = UTIL or require "util"
-Ball = Ball or require "ball"
-Coins = Coins or require "coin"
+UTIL = UTIL or require("util")
+Ball = Ball or require("ball")
+Coins = Coins or require("coin")
 
 function love.load()
     ball = Ball:new()
@@ -37,7 +37,8 @@ function love.keypressed(key)
     end
     if key == "s" then
         if ball:onFloor() and ball.life:loseLife() then
-            ball.draw = function() end
+            ball.draw = function()
+            end
         end
     end
 end

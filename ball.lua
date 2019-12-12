@@ -1,5 +1,5 @@
-UTIL = UTIL or require "util"
-Vec = Vec or require "vec"
+UTIL = UTIL or require("util")
+Vec = Vec or require("vec")
 
 -- Life Class
 local Life = {

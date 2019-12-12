@@ -1,4 +1,4 @@
-UTIL = UTIL or require "util.lua"
+UTIL = UTIL or require("util.lua")
 
 -- Coin Class
 local Coin = {
@@ -12,7 +12,7 @@ function Coin:new(x, y)
         pos = {x = x, y = y}
     }
     setmetatable(coin, self)
-	self.__index = self
+    self.__index = self
 
     function coin:draw()
         love.graphics.draw(Coin.sprite, self.pos.x, self.pos.y, 0, Coin.SCALE)
@@ -29,7 +29,7 @@ function Coins:new()
         n = 0
     }
     setmetatable(coins, self)
-	self.__index = self
+    self.__index = self
 
     function coins:add(x, y)
         self.vet[self.n] = Coin:new(x, y)
