@@ -47,6 +47,13 @@ function love.keypressed(key)
     end
 end
 
+function love.keyreleased(key)
+    if key == "w" then
+        print("keyrel")
+        ball:stopJump()
+    end
+end
+
 --[[
 function love.resize(w, h)
 end

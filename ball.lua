@@ -42,7 +42,7 @@ end
 local Ball = {
     SCALE = 10 * UTIL.tile,
     GRAVIDADE = 2000 * UTIL.tile,
-    PULO = 500 * UTIL.tile,
+    PULO = 1100 * UTIL.tile,
     CAMINHADA = 200 * UTIL.tile,
     sprite = love.graphics.newImage("images/ball.png")
 }
@@ -55,7 +55,6 @@ function Ball:new()
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
         life = Life:new(),
-        jump_time = 0
     }
     setmetatable(ball, self)
     self.__index = self
@@ -81,13 +80,16 @@ function Ball:new()
         self.vel.x = val * Ball.CAMINHADA
     end
 
-    function ball:jump(dt)
+    function ball:jump()
         if ball:onFloor() then
-            self.jump_time = 1
             self.vel.y = -Ball.PULO
-        elseif self.jump_time > 0 then
-            self.jump_time = self.jump_time - dt
-            self.vel.y = -Ball.PULO * self.jump_time
+        end
+    end
+
+    function ball:stopJump()
+        print("stop jmp")
+        if self.vel.y < 0 then
+            self.vel.y = self.vel.y / 2
         end
     end
 
