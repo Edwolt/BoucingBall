@@ -29,7 +29,7 @@ function love.update(dt)
     end
     ball:walk(walk)
     if love.keyboard.isDown("w") then
-        ball:jump()
+        ball:jump(dt)
     end
 
     ball:update(dt)
