@@ -23,15 +23,28 @@ function Life:new()
     end
 
     function life:draw()
-        for i = 1, self.n do
-            love.graphics.draw(
-                Life.sprite, --
-                Life.POS.x + i * Life.SPACE,
-                Life.POS.y,
-                0,
-                Life.SCALE,
-                Life.SCALE
-            )
+        if self.n >= 0 then
+            for i = 1, self.n do
+                love.graphics.draw(
+                    Life.sprite, --
+                    Life.POS.x + i * Life.SPACE,
+                    Life.POS.y,
+                    0,
+                    Life.SCALE,
+                    Life.SCALE
+                )
+            end
+        else
+            for i=1,-self.n do
+                love.graphics.draw(
+                    Life.sprite, --
+                    Life.POS.x + i * Life.SPACE,
+                    Life.POS.y + 32,
+                    0,
+                    Life.SCALE,
+                    -Life.SCALE
+                )
+            end
         end
     end
 
@@ -54,7 +67,7 @@ function Ball:new()
         pos = Vec:new(100, 100),
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
-        life = Life:new(),
+        life = Life:new()
     }
     setmetatable(ball, self)
     self.__index = self
@@ -72,7 +85,10 @@ function Ball:new()
         self.pos = self.pos:add(self.vel:mul(dt))
 
         if self.pos.y > Ball.FLOOR then
-            self.pos.y = Ball.FLOOR
+            self.pos = Vec:new(50, 50)
+            self.vel = Vec:new(0, 0)
+            self.acel = Vec:new(0, Ball.GRAVIDADE)
+            self.life:loseLife()
         end
     end
 

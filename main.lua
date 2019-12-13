@@ -39,12 +39,6 @@ function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
-    if key == "s" then
-        if ball:onFloor() and ball.life:loseLife() then
-            ball.draw = function()
-            end
-        end
-    end
 end
 
 function love.keyreleased(key)
