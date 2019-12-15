@@ -1,5 +1,5 @@
-UTIL = UTIL or require("util")
-Vec = Vec or require("vec")
+UTIL = UTIL or require "util"
+Vec = Vec or require "modules.vec"
 
 -- Life Class
 local Life = {
@@ -35,7 +35,7 @@ function Life:new()
                 )
             end
         else
-            for i=1,-self.n do
+            for i = 1, -self.n do
                 love.graphics.draw(
                     Life.sprite, --
                     Life.POS.x + i * Life.SPACE,
@@ -67,6 +67,10 @@ function Ball:new()
         pos = Vec:new(100, 100),
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
+        margin = {
+            topleft = Vec:new(50, 50),
+            bottomright = Vec:new(UTIL.width - 50, UTIL.height - 50)
+        },
         life = Life:new()
     }
     setmetatable(ball, self)
@@ -77,7 +81,7 @@ function Ball:new()
         love.graphics.draw(Ball.sprite, self.pos.x, self.pos.y, 0, Ball.SCALE, Ball.SCALE)
     end
 
-    function ball:update(dt)
+    function ball:move(dt)
         -- vel = vel + acel * dt
         self.vel = self.vel:add(self.acel:mul(dt))
 

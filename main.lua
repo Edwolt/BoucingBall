@@ -8,7 +8,7 @@ function love.load()
     coins = Coins:new()
     coins:add(20, 20)
     scene = Scene:new()
-    scene:load("untitled")
+    scene:load("Fase1")
 end
 
 function love.draw()
@@ -32,7 +32,7 @@ function love.update(dt)
         ball:jump(dt)
     end
 
-    ball:update(dt)
+    ball:move(dt)
 end
 
 function love.keypressed(key)
