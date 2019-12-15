@@ -1,7 +1,11 @@
-Vec = Vec or require "vec"
+UTIL = UTIL or require "util"
+Vec = Vec or require "modules.vec"
 
 -- Layer Class
-local Layer = {}
+local Layer = {
+    SCALE = UTIL.tile* 3
+}
+
 function Layer:new(l, sheet)
     local layer = {
         width = l.width,
@@ -41,7 +45,15 @@ function Layer:new(l, sheet)
         local x = screen_pos.x * info.tile.width
         local y = screen_pos.y * info.tile.height
 
-        love.graphics.draw(self.sheet, quad, x, y)
+        love.graphics.draw(
+            self.sheet, --
+            quad,
+            x * Layer.SCALE,
+            y * Layer.SCALE,
+            0,
+            Layer.SCALE,
+            Layer.SCALE
+        )
     end
 
     return layer
@@ -59,7 +71,7 @@ function Scene:new()
     function scene:load(path)
         local tilemap = require("tilemap/" .. path)
         local tileset = tilemap.tilesets[1]
-        local sheet = love.graphics.newImage(tileset.image)
+        local sheet = love.graphics.newImage(tileset.image:sub(3))
         self.info = {
             tile = {
                 width = tileset.tilewidth,
