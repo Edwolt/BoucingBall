@@ -1,7 +1,6 @@
 # Itens para de teste
-tilemap/*
 images/placeholder.png
-images/sheet.png
+paletas/*
 
 # Compiled Lua sources
 luac.out
