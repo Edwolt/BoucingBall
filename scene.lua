@@ -44,7 +44,6 @@ function Layer:new(l, sheet)
     function layer:_draw(screen_pos, quad, info, pos)
         local x = screen_pos.x * info.tile.width
         local y = screen_pos.y * info.tile.height
-        print(pos.x, pos.y)
 
         love.graphics.draw(
             self.sheet, --
