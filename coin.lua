@@ -25,9 +25,7 @@ end
 -- Coins Class
 local Coins = {}
 function Coins:new()
-    local coins = {
-        vet = {}
-    }
+    local coins = {vet = {}}
     setmetatable(coins, self)
     self.__index = self
 
