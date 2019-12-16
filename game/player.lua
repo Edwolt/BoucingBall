@@ -1,7 +1,6 @@
 UTIL = UTIL or require "util"
 Modules = Modules or require "modules"
 local Vec = Modules.Vec
-local Square = Modules.Square
 
 -- Ball Class
 local Player = {
@@ -9,7 +8,6 @@ local Player = {
     GRAVIDADE = 2000 * UTIL.tile,
     PULO = 1100 * UTIL.tile,
     CAMINHADA = 200 * UTIL.tile,
-    MARGIN = Vec:new(UTIL.width / 4, UTIL.height / 4),
     sprite = love.graphics.newImage("images/ball.png")
 }
 Player.sprite:setFilter("nearest", "nearest")
@@ -26,12 +24,6 @@ function Player:new()
         pos = Vec:new(100, 100),
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Player.GRAVIDADE),
-        margin = Square:new(
-            Player.MARGIN.x * UTIL.tile, --
-            Player.MARGIN.y * UTIL.tile,
-            (UTIL.width - Player.MARGIN.x) * UTIL.tile - Player.sprite:getWidth() * Player.SCALE,
-            (UTIL.height - Player.MARGIN.y) * UTIL.tile - Player.sprite:getHeight() * Player.SCALE
-        ),
         life = 5
     }
     setmetatable(player, self)
@@ -48,11 +40,6 @@ function Player:new()
 
         -- newpos = pos + vel * dt * SCALE
         self.pos = self.pos:add(self.vel:mul(dt))
-    end
-
-    function player:forceMove(dt, vec)
-        -- pos = pos + vec
-        self.pos = self.pos:add(vec)
     end
 
     function player:walk(val)
