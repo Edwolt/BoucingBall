@@ -32,7 +32,7 @@ function love.update(dt)
         ball:jump(dt)
     end
 
-    ball:move(dt)
+    ball:update(dt, scene)
 end
 
 function love.keypressed(key)

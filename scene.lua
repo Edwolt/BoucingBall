@@ -3,7 +3,7 @@ Vec = Vec or require "modules.vec"
 
 -- Layer Class
 local Layer = {
-    SCALE = UTIL.tile* 3
+    SCALE = UTIL.tile
 }
 
 function Layer:new(l, sheet)
@@ -16,9 +16,9 @@ function Layer:new(l, sheet)
     setmetatable(layer, self)
     self.__index = self
 
-    function layer:draw(info)
-        for y = 0, self.height - 1 do
-            for x = 0, self.width - 1 do
+    function layer:draw(info, pos)
+        for x = 0, self.height - 1 do
+            for y = 0, self.width - 1 do
                 local k = y * self.width + x + 1
                 if self.data[k] ~= 0 then
                     local i = self.data[k] - 1
@@ -35,25 +35,30 @@ function Layer:new(l, sheet)
                         info.image.height
                     )
 
-                    self:_draw(Vec:new(x, y), quad, info)
+                    self:_draw(Vec:new(x, y), quad, info, pos)
                 end
             end
         end
     end
 
-    function layer:_draw(screen_pos, quad, info)
+    function layer:_draw(screen_pos, quad, info, pos)
         local x = screen_pos.x * info.tile.width
         local y = screen_pos.y * info.tile.height
+        print(pos.x, pos.y)
 
         love.graphics.draw(
             self.sheet, --
             quad,
-            x * Layer.SCALE,
-            y * Layer.SCALE,
+            x * Layer.SCALE - pos.x,
+            y * Layer.SCALE - pos.y,
             0,
             Layer.SCALE,
             Layer.SCALE
         )
+    end
+
+    function layer:getTam()
+        return self.height, self.width
     end
 
     return layer
@@ -63,7 +68,8 @@ end
 local Scene = {}
 function Scene:new()
     local scene = {
-        layers = {}
+        layers = {},
+        pos = Vec:new(0, 0)
     }
     setmetatable(scene, self)
     self.__index = self
@@ -90,9 +96,14 @@ function Scene:new()
         end
     end
 
+    function scene:move(vec)
+        -- pos = pos + vec
+        self.pos = self.pos:add(vec)
+    end
+
     function scene:draw()
         for k, i in ipairs(self.layers) do
-            i:draw(self.info)
+            i:draw(self.info, self.pos)
         end
     end
 
