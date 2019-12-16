@@ -69,10 +69,10 @@ function Ball:new()
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
         margin = Square:new(
-            50, --
-            50,
-            UTIL.width - 50 - self.sprite:getWidth() * Ball.SCALE,
-            UTIL.height - 50 - self.sprite:getWidth() * Ball.SCALE
+            50 * UTIL.tile, --
+            50 * UTIL.tile,
+            (UTIL.width - 50 - self.sprite:getWidth() *Ball.SCALE) * UTIL.tile,
+            (UTIL.height - 50 - self.sprite:getHeight() * Ball.SCALE) * UTIL.tile
         ),
         life = Life:new()
     }
@@ -89,7 +89,7 @@ function Ball:new()
         -- vel = vel + acel * dt
         self.vel = self.vel:add(self.acel:mul(dt))
 
-        -- newpos = pos + vel * dt
+        -- newpos = pos + vel * dt * SCALE
         local newpos = self.pos:add(self.vel:mul(dt))
 
         local restante = Vec:new() -- vector of left movement
@@ -116,7 +116,7 @@ function Ball:new()
             self.pos.y = self.margin.p2.y
             restante.y = newpos.y - self.margin.p2.y
         end
-
+        
         scene:move(restante)
     end
 
