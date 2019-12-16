@@ -68,7 +68,11 @@ function Player:new()
     function player:loseLife()
         self.life = self.life - 1
     end
-    
+
+    function player:onFloor()
+        return false
+    end
+
     return player
 end
 

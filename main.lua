@@ -40,7 +40,7 @@ end
 function love.keyreleased(key)
     if key == "w" then
         print("keyrel")
-        ball:stopJump()
+        game.player:stopJump()
     end
 end
 
