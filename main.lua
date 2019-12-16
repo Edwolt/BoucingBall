@@ -3,6 +3,8 @@ Ball = Ball or require "ball"
 Coins = Coins or require "coin"
 Scene = Scene or require "scene"
 
+local ball, coins, scene
+
 function love.load()
     ball = Ball:new()
     coins = Coins:new()

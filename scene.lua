@@ -3,7 +3,7 @@ Vec = Vec or require "modules.vec"
 
 -- Layer Class
 local Layer = {
-    SCALE = UTIL.tile
+    SCALE = UTIL.tile * 3
 }
 
 function Layer:new(l, sheet)
