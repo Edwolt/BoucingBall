@@ -6,7 +6,7 @@ local Vec = Modules.Vec
 local Collider = {}
 
 -- parametros podem ser:
--- (vec, vec)
+-- (Vec, Vec)
 -- (int, int, int, int)
 function Collider:new(x1, y1, x2, y2)
     local vec1, vec2
@@ -30,6 +30,15 @@ function Collider:new(x1, y1, x2, y2)
         p1 = vec1, -- top left
         p2 = vec2 -- botton right
     }
+    setmetatable(collider, self)
+    self.__index = self
+
+    function collider:collision(other)
+        return self.p1.x < other.p2.x and --
+            self.p2.x > other.p1.x and
+            self.p1.y < other.p2.y and
+            self.p2.y > self.p1.y
+    end
     return collider
 end
 
@@ -37,16 +46,37 @@ end
 local Colliders = {}
 function Colliders:new()
     local colliders = {vet = {}}
+    setmetatable(colliders, self)
+    self.__index = self
 
-    -- parametros podem ser:
-    -- (square)
-    -- (vec, vec)
+    ---- parametros podem ser:
+    -- (Vec, Vec)
     -- (int, int, int, int)
     function colliders:add(x1, y1, x2, y2)
-        table.insert(self.vet, Collider(x1, y1, x2, y2))
+        table.insert(self.vet, Collider:new(x1, y1, x2, y2))
+    end
+
+    function colliders:concat(other)
+        for i in ipairs(other.vet) do
+            table.insert(self.vet, i)
+        end
+    end
+
+    -- parametros podem ser:
+    -- (Vec, Vec)
+    -- (int, int, int, int)
+    function colliders:collision(obj)
+        if getmetatable(obj) == Collider then
+            for i in ipairs(obj) do
+                if i:collision(obj) then
+                    return true
+                end
+            end
+        end
+        return false
     end
 
     return colliders
 end
 
-return Colliders
+return Colliders, Collider

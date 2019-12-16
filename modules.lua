@@ -1,6 +1,7 @@
 local Modules = Modules or {}
 
 Modules.Vec = Modules.Vec or require "modules.vec"
-Modules.Colliders = Modules.Colliders or require "modules.collider"
-
+if not (Modules.Colliders and Modules.Collider) then
+    Modules.Colliders, Modules.Collider = require "modules.collider"
+end
 return Modules

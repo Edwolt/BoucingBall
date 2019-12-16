@@ -1,6 +1,7 @@
 UTIL = UTIL or require "util"
 Modules = Modules or require "modules"
 local Vec = Modules.Vec
+local Collider = Modules.Collider
 
 -- Ball Class
 local Player = {
@@ -65,6 +66,12 @@ function Player:new()
 
     function player:onFloor()
         return false
+    end
+
+    function player:getCollider()
+        local p2 = Vec:new(Player.sprite:getWidth(), Player.sprite:getHeight())
+        p2 = p2:add(self.pos)
+        return Collider:new(self.pos, p2)
     end
 
     return player
