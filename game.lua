@@ -14,13 +14,16 @@ function Game:new(o)
         player = o.player or Game.Ball:new(),
         scene = o.scene or Game.Scene:new(),
         coins = o.coins or Game.Coins:new(),
-        pos = Vec:new(0, 0)
     }
 
     function game:draw()
         self.scene:draw(self.pos)
         self.coins:draw(self.pos)
         self.player:draw()
+    end
+
+    function game:update(dt)
+        game.player:update(dt, game)
     end
 
     function game:move(vec)

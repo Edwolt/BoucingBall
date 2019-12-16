@@ -28,7 +28,7 @@ function love.update(dt)
         game.player:jump(dt)
     end
 
-    game.player:update(dt, level)
+    game:update(dt)
 end
 
 function love.keypressed(key)
