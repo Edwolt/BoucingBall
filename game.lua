@@ -20,7 +20,7 @@ function Game:new(o)
     function game:draw()
         self.scene:draw(Vec:new(0, 0))
         self.coins:draw(Vec:new(0, 0))
-        self.player:draw()
+        self.player:draw(Vec:new(10,10))
         Game.HUD.Life:draw(self.player.life)
     end
 

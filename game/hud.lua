@@ -36,6 +36,7 @@ function Life:draw(n)
     end
 end
 
+-- HUD Class
 HUD = {Life = Life}
 
 return HUD

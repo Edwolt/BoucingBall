@@ -30,8 +30,8 @@ function Player:new()
     setmetatable(player, self)
     self.__index = self
 
-    function player:draw()
-        love.graphics.draw(Player.sprite, self.pos.x, self.pos.y, 0, Player.SCALE, Player.SCALE)
+    function player:draw(pos)
+        love.graphics.draw(Player.sprite, pos.x, pos.y, 0, Player.SCALE, Player.SCALE)
     end
 
     -- Updates ball position and return a Vec of movement that can't be actualized
