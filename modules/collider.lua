@@ -8,7 +8,7 @@ local Collider = {}
 -- parametros podem ser:
 -- (vec, vec)
 -- (int, int, int, int)
-function Collider:new(x1, y1, x2, y1)
+function Collider:new(x1, y1, x2, y2)
     local vec1, vec2
     if x2 == nil then
         vec1 = x1
