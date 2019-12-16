@@ -5,14 +5,14 @@ local Vec = Modules.Vec
 local Game = {
     Scene = require "game.scene",
     Coins = require "game.coin",
-    Ball = require "game.ball",
+    Player = require "game.player",
     HUD = require "game.hud"
 }
 
 function Game:new(o)
     o = o or {}
     local game = {
-        player = o.player or Game.Ball:new(),
+        player = o.player or Game.Player:new(),
         scene = o.scene or Game.Scene:new(),
         coins = o.coins or Game.Coins:new()
     }
