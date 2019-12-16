@@ -1,4 +1,6 @@
 local Modules = Modules or {}
+
 Modules.Vec = Modules.Vec or require "modules.vec"
-Modules.Square = Modules.Square or require "modules.square"
+Modules.Colliders = Modules.Colliders or require "modules.collider"
+
 return Modules
