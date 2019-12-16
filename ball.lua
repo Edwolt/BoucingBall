@@ -4,7 +4,7 @@ Square = Square or require "modules.square"
 
 -- Life Class
 local Life = {
-    SCALE = UTIL.tile * 7,
+    SCALE = 7,
     POS = Vec:new(50, 20),
     SPACE = 50,
     sprite = love.graphics.newImage("images/life.png")
@@ -85,7 +85,7 @@ function Ball:new()
     end
 
     -- Updates ball position and return a Vec of movement that can't be actualized
-    function ball:update(dt, scene)
+    function ball:update(dt, level)
         -- vel = vel + acel * dt
         self.vel = self.vel:add(self.acel:mul(dt))
 
@@ -117,7 +117,7 @@ function Ball:new()
             restante.y = newpos.y - self.margin.p2.y
         end
 
-        scene:move(restante)
+        level:move(restante)
     end
 
     function ball:forceMove(dt, vec)

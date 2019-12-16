@@ -68,7 +68,6 @@ local Scene = {}
 function Scene:new()
     local scene = {
         layers = {},
-        pos = Vec:new(0, 0)
     }
     setmetatable(scene, self)
     self.__index = self
@@ -95,14 +94,9 @@ function Scene:new()
         end
     end
 
-    function scene:move(vec)
-        -- pos = pos + vec
-        self.pos = self.pos:add(vec)
-    end
-
-    function scene:draw()
+    function scene:draw(pos)
         for k, i in ipairs(self.layers) do
-            i:draw(self.info, self.pos)
+            i:draw(self.info, pos)
         end
     end
 

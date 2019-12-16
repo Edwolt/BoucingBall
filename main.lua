@@ -1,21 +1,18 @@
 UTIL = UTIL or require "util"
 Ball = Ball or require "ball"
-Coins = Coins or require "coin"
-Scene = Scene or require "scene"
+Level = Level or require "level"
 
-local ball, coins, scene
+local ball, level
 
 function love.load()
     ball = Ball:new()
-    coins = Coins:new()
-    coins:add(20, 20)
-    scene = Scene:new()
-    scene:load("Fase1")
+    level = Level:new()
+    level.coins:add(20, 20)
+    level.scene:load("Fase1")
 end
 
 function love.draw()
-    scene:draw()
-    coins:draw()
+    level:draw()
     ball:draw()
 end
 
@@ -34,7 +31,7 @@ function love.update(dt)
         ball:jump(dt)
     end
 
-    ball:update(dt, scene)
+    ball:update(dt, level)
 end
 
 function love.keypressed(key)
