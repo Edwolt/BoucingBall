@@ -5,6 +5,8 @@ function Vec:new(x, y)
         x = x or 0,
         y = y or 0
     }
+    setmetatable(vec, self)
+    self.__index = self
 
     function vec:add(other)
         return Vec:new(
