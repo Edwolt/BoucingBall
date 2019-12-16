@@ -14,6 +14,13 @@ local Player = {
 }
 Player.sprite:setFilter("nearest", "nearest")
 
+function Player:spriteCenter()
+    return Vec:new(
+        self.sprite:getWidth() / 2, --
+        self.sprite:getHeight() / 2
+    ):mul(self.SCALE)
+end
+
 function Player:new()
     local player = {
         pos = Vec:new(100, 100),

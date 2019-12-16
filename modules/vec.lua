@@ -15,6 +15,13 @@ function Vec:new(x, y)
         )
     end
 
+    function vec:sub(other)
+        return Vec:new(
+            self.x - other.x, --
+            self.y - other.y
+        )
+    end
+
     function vec:mul(num)
         return Vec:new(
             self.x * num, --
