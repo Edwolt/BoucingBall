@@ -1,5 +1,6 @@
 UTIL = UTIL or require "util"
-Vec = Vec or require "modules.vec"
+Modules = Modules or require "modules"
+local Vec = Modules.Vec
 
 -- Layer Class
 local Layer = {

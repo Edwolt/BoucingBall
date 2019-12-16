@@ -1,19 +1,16 @@
 UTIL = UTIL or require "util"
-Ball = Ball or require "ball"
-Level = Level or require "level"
+Game = Game or require "game"
 
-local ball, level
+local game
 
 function love.load()
-    ball = Ball:new()
-    level = Level:new()
-    level.coins:add(20, 20)
-    level.scene:load("Fase1")
+    game = Game:new()
+    game.coins:add(20, 20)
+    game.scene:load("Fase1")
 end
 
 function love.draw()
-    level:draw()
-    ball:draw()
+    game:draw()
 end
 
 function love.update(dt)
@@ -26,12 +23,12 @@ function love.update(dt)
     if love.keyboard.isDown("d") then
         walk = walk + 1
     end
-    ball:walk(walk)
+    game.player:walk(walk)
     if love.keyboard.isDown("w") then
-        ball:jump(dt)
+        game.player:jump(dt)
     end
 
-    ball:update(dt, level)
+    game.player:update(dt, level)
 end
 
 function love.keypressed(key)

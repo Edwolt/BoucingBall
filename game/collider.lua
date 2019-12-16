@@ -1,4 +1,5 @@
-Square = Square or require "modules.square"
+Modules = Modules or require "modules"
+local Square = Modules.Square
 
 -- Collider Class
 local Collider = {}

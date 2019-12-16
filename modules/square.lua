@@ -1,4 +1,6 @@
-Vec = Vec or require "modules.vec"
+Modules = Modules or {}
+Modules.Vec = require "modules.vec"
+local Vec = Modules.Vec
 
 -- Square Class
 local Square = {}
@@ -15,7 +17,7 @@ function Square:new(x1, y1, x2, y2)
         vec1 = Vec:new(x1, y1)
         vec2 = Vec:new(x2, y2)
     end
-    
+
     -- Consertando vecs
     if vec1.x > vec2.x then
         vec1.x, vec2.x = vec2.x, vec1.x

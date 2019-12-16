@@ -1,6 +1,7 @@
 UTIL = UTIL or require "util"
-Vec = Vec or require "modules.vec"
-Square = Square or require "modules.square"
+Modules = Modules or require "modules"
+local Vec = Modules.Vec
+local Square = Modules.Square
 
 -- Life Class
 local Life = {
@@ -58,7 +59,7 @@ local Ball = {
     GRAVIDADE = 2000 * UTIL.tile,
     PULO = 1100 * UTIL.tile,
     CAMINHADA = 200 * UTIL.tile,
-    MARGIN = 100,
+    MARGIN = Vec:new(UTIL.width / 4, UTIL.height / 4),
     sprite = love.graphics.newImage("images/ball.png")
 }
 Ball.sprite:setFilter("nearest", "nearest")
@@ -69,10 +70,10 @@ function Ball:new()
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
         margin = Square:new(
-            Ball.MARGIN * UTIL.tile, --
-            Ball.MARGIN * UTIL.tile,
-            (UTIL.width - Ball.MARGIN) * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
-            (UTIL.height - Ball.MARGIN) * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
+            Ball.MARGIN.x * UTIL.tile, --
+            Ball.MARGIN.y * UTIL.tile,
+            (UTIL.width - Ball.MARGIN.x) * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
+            (UTIL.height - Ball.MARGIN.y) * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
         ),
         life = Life:new()
     }
@@ -90,34 +91,7 @@ function Ball:new()
         self.vel = self.vel:add(self.acel:mul(dt))
 
         -- newpos = pos + vel * dt * SCALE
-        local newpos = self.pos:add(self.vel:mul(dt))
-
-        local restante = Vec:new() -- vector of left movement
-
-        local ok = self.margin:vecInner(newpos)
-        if ok.x == 0 then
-            self.pos.x = newpos.x
-            restante.x = 0
-        elseif ok.x == -1 then
-            self.pos.x = self.margin.p1.x
-            restante.x = newpos.x - self.margin.p1.x
-        else
-            self.pos.x = self.margin.p2.x
-            restante.x = newpos.x - self.margin.p2.x
-        end
-
-        if ok.y == 0 then
-            self.pos.y = newpos.y
-            restante.y = 0
-        elseif ok.y == -1 then
-            self.pos.y = self.margin.p1.y
-            restante.y = newpos.y - self.margin.p1.y
-        else
-            self.pos.y = self.margin.p2.y
-            restante.y = newpos.y - self.margin.p2.y
-        end
-
-        level:move(restante)
+        self.pos = self.pos:add(self.vel:mul(dt))
     end
 
     function ball:forceMove(dt, vec)

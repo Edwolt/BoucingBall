@@ -1,5 +1,4 @@
 UTIL = UTIL or require "util"
-Vec = Vec or require "modules.vec"
 
 -- Coin Class
 local Coin = {
