@@ -19,6 +19,8 @@ function Square:new(x1, y1, x2, y2)
         p1 = vec1,
         p2 = vec2
     }
+    setmetatable(square, self)
+    self.__index = self
 
     function square:vecInner(obj)
         local res = {x = 0, y = 0}
