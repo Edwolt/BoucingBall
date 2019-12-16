@@ -5,7 +5,8 @@ local Vec = Modules.Vec
 local Game = {
     Scene = require "game.scene",
     Coins = require "game.coin",
-    Ball = require "game.ball"
+    Ball = require "game.ball",
+    HUD = require "game.hud"
 }
 
 function Game:new(o)
@@ -13,13 +14,14 @@ function Game:new(o)
     local game = {
         player = o.player or Game.Ball:new(),
         scene = o.scene or Game.Scene:new(),
-        coins = o.coins or Game.Coins:new(),
+        coins = o.coins or Game.Coins:new()
     }
 
     function game:draw()
-        self.scene:draw(self.pos)
-        self.coins:draw(self.pos)
+        self.scene:draw(Vec:new(0, 0))
+        self.coins:draw(Vec:new(0, 0))
         self.player:draw()
+        Game.HUD.Life:draw(self.player.life)
     end
 
     function game:update(dt)

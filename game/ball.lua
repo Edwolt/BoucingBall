@@ -3,56 +3,6 @@ Modules = Modules or require "modules"
 local Vec = Modules.Vec
 local Square = Modules.Square
 
--- Life Class
-local Life = {
-    SCALE = 7,
-    POS = Vec:new(50, 20),
-    SPACE = 50,
-    sprite = love.graphics.newImage("images/life.png")
-}
-
-Life.sprite:setFilter("nearest", "nearest")
-function Life:new()
-    local life = {
-        n = 5
-    }
-    setmetatable(life, self)
-    self.__index = self
-
-    function life:loseLife()
-        self.n = self.n - 1
-        return self.n < 0
-    end
-
-    function life:draw()
-        if self.n >= 0 then
-            for i = 1, self.n do
-                love.graphics.draw(
-                    Life.sprite, --
-                    Life.POS.x + i * Life.SPACE,
-                    Life.POS.y,
-                    0,
-                    Life.SCALE,
-                    Life.SCALE
-                )
-            end
-        else
-            for i = 1, -self.n do
-                love.graphics.draw(
-                    Life.sprite, --
-                    Life.POS.x + i * Life.SPACE,
-                    Life.POS.y + Life.sprite:getHeight() * Life.SCALE,
-                    0,
-                    Life.SCALE,
-                    -Life.SCALE
-                )
-            end
-        end
-    end
-
-    return life
-end
-
 -- Ball Class
 local Ball = {
     SCALE = 10 * UTIL.tile,
@@ -75,13 +25,12 @@ function Ball:new()
             (UTIL.width - Ball.MARGIN.x) * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
             (UTIL.height - Ball.MARGIN.y) * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
         ),
-        life = Life:new()
+        life = 5
     }
     setmetatable(ball, self)
     self.__index = self
 
     function ball:draw()
-        ball.life:draw()
         love.graphics.draw(Ball.sprite, self.pos.x, self.pos.y, 0, Ball.SCALE, Ball.SCALE)
     end
 
@@ -116,10 +65,10 @@ function Ball:new()
         end
     end
 
-    function ball:onFloor()
-        return self.pos.y == Ball.FLOOR
+    function ball:loseLife()
+        self.life = self.life - 1
     end
-
+    
     return ball
 end
 
