@@ -11,13 +11,18 @@ function Square:new(x1, y1, x2, y2)
         vec1 = Vec:new(x1, y1)
         vec2 = Vec:new(x2, y2)
     end
+    
+    -- Consertando vecs
     if vec1.x > vec2.x then
-        vec1, vec2 = vec2, vec1
+        vec1.x, vec2.x = vec2.x, vec1.x
+    end
+    if vec1.y > vec2.y then
+        vec1.y, vec2.y = vec2.y, vec1.y
     end
 
     local square = {
-        p1 = vec1,
-        p2 = vec2
+        p1 = vec1, -- top left
+        p2 = vec2 -- botton right
     }
     setmetatable(square, self)
     self.__index = self
