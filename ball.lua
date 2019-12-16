@@ -60,7 +60,6 @@ local Ball = {
     CAMINHADA = 200 * UTIL.tile,
     sprite = love.graphics.newImage("images/ball.png")
 }
-Ball.FLOOR = 1000 * UTIL.tile - Ball.SCALE * Ball.sprite:getHeight()
 Ball.sprite:setFilter("nearest", "nearest")
 
 function Ball:new()
@@ -71,8 +70,8 @@ function Ball:new()
         margin = Square:new(
             50 * UTIL.tile, --
             50 * UTIL.tile,
-            (UTIL.width - 50 - self.sprite:getWidth() *Ball.SCALE) * UTIL.tile,
-            (UTIL.height - 50 - self.sprite:getHeight() * Ball.SCALE) * UTIL.tile
+            UTIL.width * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
+            UTIL.height * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
         ),
         life = Life:new()
     }
@@ -116,7 +115,7 @@ function Ball:new()
             self.pos.y = self.margin.p2.y
             restante.y = newpos.y - self.margin.p2.y
         end
-        
+
         scene:move(restante)
     end
 
