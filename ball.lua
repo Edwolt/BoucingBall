@@ -58,6 +58,7 @@ local Ball = {
     GRAVIDADE = 2000 * UTIL.tile,
     PULO = 1100 * UTIL.tile,
     CAMINHADA = 200 * UTIL.tile,
+    MARGIN = 100,
     sprite = love.graphics.newImage("images/ball.png")
 }
 Ball.sprite:setFilter("nearest", "nearest")
@@ -68,10 +69,10 @@ function Ball:new()
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Ball.GRAVIDADE),
         margin = Square:new(
-            50 * UTIL.tile, --
-            50 * UTIL.tile,
-            UTIL.width * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
-            UTIL.height * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
+            Ball.MARGIN * UTIL.tile, --
+            Ball.MARGIN * UTIL.tile,
+            (UTIL.width - Ball.MARGIN) * UTIL.tile - Ball.sprite:getWidth() * Ball.SCALE,
+            (UTIL.height - Ball.MARGIN) * UTIL.tile - Ball.sprite:getHeight() * Ball.SCALE
         ),
         life = Life:new()
     }
