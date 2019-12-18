@@ -38,6 +38,7 @@ function Game:new(o)
         local coll = game.scene.colliders:collision(game.player:getCollider())
         if coll then
             game.player.vel.y = 0
+            game.player.pos.y = coll.p1.y - Game.Player:spriteCenter():mul(2).y
         end
     end
 

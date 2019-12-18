@@ -68,7 +68,7 @@ function Player:new()
     end
 
     function player:getCollider()
-        local p2 = Vec:new(Player.sprite:getWidth(), Player.sprite:getHeight())
+        local p2 = Vec:new(Player.sprite:getWidth(), Player.sprite:getHeight()):mul(Player.SCALE)
         p2 = p2:add(self.pos)
         return Collider:new(self.pos, p2)
     end
