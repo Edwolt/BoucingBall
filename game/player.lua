@@ -35,12 +35,12 @@ function Player:new()
     end
 
     -- Updates ball position and return a Vec of movement that can't be actualized
-    function player:update(dt, level)
+    function player:update(dt)
+        -- pos = pos + vel * dt * SCALE
+        self.pos = self.pos:add(self.vel:mul(dt))
+        
         -- vel = vel + acel * dt
         self.vel = self.vel:add(self.acel:mul(dt))
-
-        -- newpos = pos + vel * dt * SCALE
-        self.pos = self.pos:add(self.vel:mul(dt))
     end
 
     function player:walk(val)
@@ -54,7 +54,6 @@ function Player:new()
     end
 
     function player:stopJump()
-        print("stop jmp")
         if self.vel.y < 0 then
             self.vel.y = self.vel.y / 2
         end

@@ -27,7 +27,6 @@ function love.update(dt)
     if love.keyboard.isDown("w") then
         game.player:jump(dt)
     end
-
     game:update(dt)
 end
 
@@ -39,7 +38,6 @@ end
 
 function love.keyreleased(key)
     if key == "w" then
-        print("keyrel")
         game.player:stopJump()
     end
 end

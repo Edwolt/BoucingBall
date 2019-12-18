@@ -34,10 +34,15 @@ function Collider:new(x1, y1, x2, y2)
     self.__index = self
 
     function collider:collision(other)
-        return self.p1.x < other.p2.x and --
-            self.p2.x > other.p1.x and
-            self.p1.y < other.p2.y and
-            self.p2.y > self.p1.y
+        if
+            self.p1.x < other.p2.x and --
+                self.p2.x > other.p1.x and
+                self.p1.y < other.p2.y and
+                self.p2.y > self.p1.y
+         then
+            return true
+        end
+        return false
     end
     return collider
 end
@@ -57,21 +62,21 @@ function Colliders:new()
     end
 
     function colliders:concat(other)
-        for i in ipairs(other.vet) do
+        for _, i in ipairs(other.vet) do
             table.insert(self.vet, i)
         end
     end
 
     -- parametros podem ser:
-    -- (Vec, Vec)
-    -- (int, int, int, int)
+    -- (Collider)
     function colliders:collision(obj)
         if getmetatable(obj) == Collider then
-            for i in ipairs(obj) do
+            for _, i in pairs(self.vet) do
                 if i:collision(obj) then
-                    return true
+                    return i
                 end
             end
+            return nil
         end
         return false
     end
@@ -79,4 +84,4 @@ function Colliders:new()
     return colliders
 end
 
-return Colliders, Collider
+return {Colliders = Colliders, Collider = Collider}
