@@ -8,7 +8,7 @@ local Player = {
     SCALE = 10 * UTIL.tile,
     GRAVIDADE = 2000 * UTIL.tile,
     PULO = 1100 * UTIL.tile,
-    CAMINHADA = 200 * UTIL.tile,
+    CAMINHADA = 800 * UTIL.tile,
     sprite = love.graphics.newImage("images/ball.png")
 }
 Player.sprite:setFilter("nearest", "nearest")
