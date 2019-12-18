@@ -39,6 +39,7 @@ function Game:new(o)
         if coll then
             game.player.vel.y = 0
             game.player.pos.y = coll.p1.y - Game.Player:spriteCenter():mul(2).y
+            game.player.canJump = true
         end
     end
 

@@ -25,7 +25,8 @@ function Player:new()
         pos = Vec:new(100, 100),
         vel = Vec:new(0, 0),
         acel = Vec:new(0, Player.GRAVIDADE),
-        life = 5
+        life = 5,
+        canJump = false
     }
     setmetatable(player, self)
     self.__index = self
@@ -38,7 +39,7 @@ function Player:new()
     function player:update(dt)
         -- pos = pos + vel * dt * SCALE
         self.pos = self.pos:add(self.vel:mul(dt))
-        
+
         -- vel = vel + acel * dt
         self.vel = self.vel:add(self.acel:mul(dt))
     end
@@ -48,8 +49,9 @@ function Player:new()
     end
 
     function player:jump()
-        if player:onFloor() then
+        if player.canJump then
             self.vel.y = -Player.PULO
+            player.canJump = false
         end
     end
 
@@ -61,10 +63,6 @@ function Player:new()
 
     function player:loseLife()
         self.life = self.life - 1
-    end
-
-    function player:onFloor()
-        return false
     end
 
     function player:getCollider()

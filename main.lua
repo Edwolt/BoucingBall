@@ -25,7 +25,7 @@ function love.update(dt)
     end
     game.player:walk(walk)
     if love.keyboard.isDown("w") then
-        game.player:jump(dt)
+        game.player:jump()
     end
     game:update(dt)
 end
